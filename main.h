@@ -2,7 +2,7 @@
 #define MAIN_H_INCLUDED
 
 
-/*declaration de la structure maillon--------------------*/
+/*declaration de la structure maillon de la skiplist --------------------*/
 
 struct skipMaillon{
     int valeur;
