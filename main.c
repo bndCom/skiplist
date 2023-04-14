@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "main.h"
+#include "machineAbstraite.h"
 
 /*Ici la main fonction ou on fait les differents oppérations sur les skipList ---------------------------------------*/
 
