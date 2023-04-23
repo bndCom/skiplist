@@ -9,10 +9,10 @@ struct skipMaillon* skipOrigin(struct skipMaillon* lightHouse, struct skipMaillo
     while(bas(origin) != NULL){
          origin = bas(origin);
     }
-    if(lightHouse == ptr){ // cas où le precedent est le lightHouse on peut pas avoir l'origin du llc,
+    /*if(lightHouse == ptr){ // cas où le precedent est le lightHouse on peut pas avoir l'origin du llc,
                             // on essaie de faire ça
         origin = bas(skipSuivant(origin));
-    }
+    }*/
     return origin;
 }
 

@@ -4,6 +4,7 @@
 #include "main.h"
 #include "skipListSupp.h"
 #include "skipListRech.h"
+#include "creeSkipList.h"
 
 // module qui fait la recherche d'une valeur donnée dans une skiplist ----------------------------------------------------------------
 
@@ -28,6 +29,7 @@ void skipRech(struct skipMaillon* lightHouse, int val, struct skipMaillon** prec
         }
         else if(skipValeur(skipSuivant(preced)) == val){
             foundTemp = true;
+            *cpt = 0;
             *cpt = skipValRepeat(lightHouse, preced, val);
             //printf("\n second Hiiiiii is == val");
         }
@@ -44,14 +46,24 @@ void skipRech(struct skipMaillon* lightHouse, int val, struct skipMaillon** prec
 // ce module fait la suppression d'une valeur donnée dans une skiplist ----------------------------------------------------------------
 
 
-void skipSupp(struct skipMaillon* lightHouse, int val){
+void skipSupp(struct skipMaillon* lightHouse, int val, struct skipMaillon** tete){
 
     bool found;
     struct skipMaillon* prec;
+    struct skipMaillon* teteTemp;
     int cpt;
+    int teteValSauv = skipValeur(*tete);
     // trouver le ptr vers le maillon qui précède l'élément à supprimer et le nombre de répetition
     skipRech(lightHouse, val, &prec, &found, &cpt);
-    suppNiveaux(prec, val);
+    //printf("\n%d", skipValeur(teteTemp));
+    //printf("\n in mach %d", skipValeur(teteTemp) == val);
+    if(found){
+        teteTemp = *tete;
+        suppNiveaux(prec, val, &teteTemp);
+        if(teteValSauv == val){ // cas où on supp premier él de la liste
+            *tete = teteTemp;
+        }
+    }
 
 }
 

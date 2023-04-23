@@ -3,7 +3,7 @@
 #include "main.h"
 
 // ce module permet de supprimer un élément donné d'une skiplist
-void suppNiveaux(struct skipMaillon* prec, int val){
+void suppNiveaux(struct skipMaillon* prec, int val, struct skipMaillon** teteTemp){
 
     struct skipMaillon* sauv;
     struct skipMaillon* actuel = skipSuivant(prec) ; // maillon à supprimer
@@ -31,6 +31,12 @@ void suppNiveaux(struct skipMaillon* prec, int val){
         }
         prec = bas(prec);
         free(sauv);
+        *teteTemp = proch;
+        //printf("\n%d", skipValeur(teteTemp));
+        //printf("\n in supp %d", skipValeur(teteTemp) == val);
+    //if(skipValeur(teteTemp) == val){
+        //printf("\n im vaaaaal");
+        //teteTemp = proch;
 
         /*while(skipValeur(skipSuivant(prec)) < val){ // sauter tous les élements entre prec et le maillon à supprimer
             prec = skipSuivant(prec);
