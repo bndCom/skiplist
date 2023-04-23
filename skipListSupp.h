@@ -1,6 +1,6 @@
-#ifndef MACHINEABSTRAITE_H_INCLUDED
-#define MACHINEABSTRAITE_H_INCLUDED
+#ifndef SKIPLISTSUPP_H_INCLUDED
+#define SKIPLISTSUPP_H_INCLUDED
 
-void suppNiveaux(struct skipMaillon* prec)
+void suppNiveaux(struct skipMaillon* prec, int val);
 
 #endif

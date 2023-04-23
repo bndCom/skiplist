@@ -6,6 +6,8 @@
 /*allouer un maillon d'une skiplist --------------------------------------*/
 void skipAllouer(struct skipMaillon** mP){
     *mP = (struct skipMaillon*)malloc(sizeof(struct skipMaillon));
+    skipAffAdrBas(*mP, NULL);
+    skipAffAdrSuivant(*mP, NULL);
 }
 
 /*affectation d'une valeur au maillon---------------------*/
@@ -57,6 +59,7 @@ struct skipMaillon* skipLireLlc(){
     scanf("%d", &val);
     skipAllouer(&P);
     skipAffVal(P, val);
+    //skipAffAdrBas(P, NULL);
     tete = P;
     for (int i=2 ; i<=n ; i++){
         printf("\nLa valeur: ");
@@ -66,7 +69,7 @@ struct skipMaillon* skipLireLlc(){
         skipAffAdrSuivant(P , Q);
         P = Q;
     }
-    skipAffAdrSuivant(P , "nil");
+    skipAffAdrSuivant(P , NULL);
     return tete;
 }
 
@@ -75,7 +78,7 @@ struct skipMaillon* skipLireLlc(){
 void skipEcrireLlc(struct skipMaillon* tete){
     struct skipMaillon* P = tete;
     int i = 1;
-    while (P != "nil"){
+    while (P != NULL){
         printf("\nla valeur '%d': %d",i ,skipValeur(P));
         i++;
         P = skipSuivant(P);

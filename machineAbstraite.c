@@ -3,26 +3,41 @@
 #include <stdbool.h>
 #include "main.h"
 #include "skipListSupp.h"
+#include "skipListRech.h"
 
 // module qui fait la recherche d'une valeur donnée dans une skiplist ----------------------------------------------------------------
 
-bool skipRech(struct skipMaillon* lightHouse, int val, struct skipMaillon** prec, bool* found){
+void skipRech(struct skipMaillon* lightHouse, int val, struct skipMaillon** prec, bool* found, int* cpt){
 
-    struct skipMaillon* rechPtr = lightHouse;
+    //printf("\n hiiiiiiiiiiii i want to ...");
+    struct skipMaillon* preced = lightHouse;
     bool foundTemp = false;
-    while(rechPtr != NULL && skipSuivant(rechPtr) != NULL && found == false){
-        if(skipValeur(skipSuivant(rechPtr)) == val){
+
+    //printf("\n before while hiiiiii");// prec est le précedent du maillon du valeur à trouver
+
+    //printf("\nlighthouse: %p, preced: %p, foundTemp adr: %d",lightHouse, preced, foundTemp);
+    while(preced != NULL && !foundTemp){
+        //printf("\n while hiiiiiiooooooiiiiiii");
+        if (skipSuivant(preced) == NULL){
+            preced = bas(preced);
+            //printf("\n first Hiiiiii is preced == null");
+        }
+        else if(skipValeur(skipSuivant(preced)) > val ){
+            preced = bas(preced);
+            //printf("\n first Hiiiiii is > val");
+        }
+        else if(skipValeur(skipSuivant(preced)) == val){
             foundTemp = true;
+            *cpt = skipValRepeat(lightHouse, preced, val);
+            //printf("\n second Hiiiiii is == val");
         }
-        else if(skipValeur(skipSuivant(rechPtr)) < val){
-            rechPtr = skipSuivant(rechPtr);
-        }
-        else{
-            rechPtr = bas(rechPtr);
+        else if(skipValeur(skipSuivant(preced)) < val){ // cas où la valeur du suivant est < val
+            preced = skipSuivant(preced);
+            //printf("\n Hiiiiii is < val");
         }
     }
     // retourner les résulats de la recherche
-    *prec = rechPtr; // ptr vers le maillon qui est chainné à gauche avec le maillon trouvé
+    *prec = preced; // ptr vers le maillon qui est chainné à gauche avec le maillon trouvé
     *found = foundTemp;
 }
 
@@ -33,22 +48,92 @@ void skipSupp(struct skipMaillon* lightHouse, int val){
 
     bool found;
     struct skipMaillon* prec;
-    // trouver le ptr vers le maillon qui précède l'élément à supprimer
-    skipRech(lightHouse, val, &prec, &found);
-    if(found){
-        suppNiveaux(prec);
+    int cpt;
+    // trouver le ptr vers le maillon qui précède l'élément à supprimer et le nombre de répetition
+    skipRech(lightHouse, val, &prec, &found, &cpt);
+    suppNiveaux(prec, val);
+
+}
+
+
+void skipCree (struct skipMaillon ** lighthouse  , struct skipMaillon * tete ){
+
+   int throwaway = 0;
+   int i = 0 ;
+   int maxlevel = 0 ;
+     struct skipMaillon *ptr_guard;
+     struct skipMaillon *guard ;
+     struct skipMaillon *ptr_creation ;
+     struct skipMaillon *new_guard ;
+     struct skipMaillon *new_lightouse ;
+     skipAllouer(&guard);
+     ptr_guard = guard;
+     skipAllouer(&(*lighthouse));
+   skipAffAdrSuivant(*lighthouse,tete);
+
+
+    while ( tete != NULL ){
+
+            if (throwaway != 0 ){
+        skipAffAdrSuivant(skipSuivant(ptr_guard),tete);
+            }
+
+        skipAffAdrSuivant(ptr_guard,tete);
+throwaway++;
+        while( key() != false )
+{
+
+     i++ ;
+
+    skipAllouer(&ptr_creation);
+
+    skipAffAdrBas(ptr_creation,skipSuivant(ptr_guard));
+
+    skipAffVal(ptr_creation,skipValeur(skipSuivant(ptr_guard)));
+
+    skipAffAdrSuivant(ptr_creation,NULL);
+
+
+    if( i > maxlevel){
+
+
+    skipAllouer(&new_guard);
+    skipAllouer(&new_lightouse);
+    skipAffAdrBas(ptr_guard,new_guard);
+    skipAffAdrBas(new_lightouse,*lighthouse);
+    skipAffAdrSuivant(new_lightouse,ptr_creation);
+    skipAffAdrSuivant(new_guard,ptr_creation);
+    skipAffAdrBas(new_guard,NULL);
+    *lighthouse = new_lightouse;
+    ptr_guard = new_guard;
+    maxlevel++;
+
+    } else{
+
+  ptr_guard = bas(ptr_guard);
+
+  skipAffAdrSuivant(skipSuivant(ptr_guard),ptr_creation);
+
+  skipAffAdrSuivant(ptr_guard,ptr_creation);
+
     }
 
 
+}
 
+tete = skipSuivant(tete);
+        i = 0;
 
-
-
-
-
-
-
-
+        ptr_guard = guard;
 
 
 }
+}
+
+
+
+
+
+
+
+
