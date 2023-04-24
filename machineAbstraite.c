@@ -13,6 +13,7 @@ void skipRech(struct skipMaillon* lightHouse, int val, struct skipMaillon** prec
     //printf("\n hiiiiiiiiiiii i want to ...");
     struct skipMaillon* preced = lightHouse;
     bool foundTemp = false;
+    *cpt = 0;
 
     //printf("\n before while hiiiiii");// prec est le précedent du maillon du valeur à trouver
 
@@ -29,7 +30,7 @@ void skipRech(struct skipMaillon* lightHouse, int val, struct skipMaillon** prec
         }
         else if(skipValeur(skipSuivant(preced)) == val){
             foundTemp = true;
-            *cpt = 0;
+
             *cpt = skipValRepeat(lightHouse, preced, val);
             //printf("\n second Hiiiiii is == val");
         }

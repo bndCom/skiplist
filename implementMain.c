@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "main.h"
 
 
@@ -72,6 +73,28 @@ struct skipMaillon* skipLireLlc(){
     skipAffAdrSuivant(P , NULL);
     return tete;
 }
+/*lire une Llc----------------random--------------------------*/
+
+void skipLireLlcRand(struct skipMaillon** tete){
+    int n;
+    int val = 1;
+    struct skipMaillon* P;
+    struct skipMaillon* Q;
+    time_t t;
+    skipAllouer(&P);
+    val = val + (rand() % 100);
+    skipAffVal(P, val);
+    //skipAffAdrBas(P, NULL);
+    *tete = P;
+    for (int i=2 ; i<=25000000 ; i++){
+        skipAllouer(&Q);
+        val = val + (rand() % 100);
+        skipAffVal(Q, val);
+        skipAffAdrSuivant(P , Q);
+        P = Q;
+    }
+    skipAffAdrSuivant(P , NULL);
+}
 
 /*afficher une Llc -------------------------------------*/
 
@@ -84,6 +107,48 @@ void skipEcrireLlc(struct skipMaillon* tete){
         P = skipSuivant(P);
 
     }
+}
+
+// suppression d'une valeur donnée dans une llc triée ----------------------------------
+
+void sortLlcSuppVal(struct skipMaillon** tete, int val) {
+    struct skipMaillon* ptr = *tete;
+    struct skipMaillon* sauv;
+    struct skipMaillon* prec = NULL;
+    int teteVal = skipValeur(*tete);
+    while(ptr != NULL && skipValeur(ptr) < val){
+        prec = ptr;
+        ptr = skipSuivant(ptr);
+    }
+
+    while(ptr != NULL && skipValeur(ptr) == val){
+        sauv = ptr;
+        if(prec != NULL){
+            skipAffAdrSuivant(prec, skipSuivant(ptr));
+        }
+        ptr = skipSuivant(ptr);
+        free(sauv);
+    }
+    if(teteVal == val){
+        *tete = ptr;
+    }
+}
+
+// recherche d'une valeur donnée dans une llc triée ----------------------------------
+
+void sortLlcRechVal(struct skipMaillon* tete, int val, bool* found, int* cpt) {
+    struct skipMaillon* ptr = tete;
+    *cpt = 0;
+    *found = false;
+    while(ptr != NULL && skipValeur(ptr) < val){
+        ptr = skipSuivant(ptr);
+    }
+
+    while(ptr != NULL && skipValeur(ptr) == val){
+        *found = true;
+        cpt++;
+    }
+
 }
 /*lenght of llc ---------------------------------------*/
 

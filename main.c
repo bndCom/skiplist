@@ -1,106 +1,62 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 #include "main.h"
 #include "machineAbstraite.h"
+#include "menu.h"
 
-/*void generateDotFile(struct skipMaillon *head, char *filename) {
-    FILE *fp = fopen(filename, "w");
-    fprintf(fp, "digraph SkipList {\n");
-    fprintf(fp, "  node [shape=circle];\n");
-    fprintf(fp, "  rankdir=LR;\n");
-    fprintf(fp, "\n");
 
-    // Iterate through each level of the skip list
-    struct skipMaillon *currentLevel = head;
-    while (currentLevel != NULL) {
-        fprintf(fp, "  { rank=same; ");
-        // Iterate through each node on this level
-        struct skipMaillon *currentNode = currentLevel;
-        while (currentNode != NULL) {
-            // Generate .dot entry for this node
-            fprintf(fp, "node%d [label=\"%d\"];\n", skipValeur(currentNode), skipValeur(currentNode));
-            if (skipSuivant(currentNode) != NULL) {
-                fprintf(fp, "node%d -> node%d;\n", skipValeur(currentNode), skipValeur(skipSuivant(currentNode)));
-            }
-            if (bas(currentNode) != NULL) {
-                fprintf(fp, "node%d -> node%d [style=dashed];\n", skipValeur(currentNode), skipValeur(bas(currentNode)));
-            }
-            currentNode = skipSuivant(currentNode);
-        }
-        fprintf(fp, "  }\n");
-        currentLevel = bas(currentLevel);
-    }
-
-    fprintf(fp, "}\n");
-    fclose(fp);
-}*/
-/*Ici la main fonction ou on fait les differents oppérations sur les skipList ---------------------------------------*/
-int elLevel(struct skipMaillon* lightHouse){
-    int cpt = 1;
-    while(lightHouse != NULL){
-        cpt++;
-        lightHouse = skipSuivant(lightHouse);
-    }
-    return cpt;
-}
 int main()
 {
+    int choix;
+    char key ;
+    int val1;
+    int val2;
 
-    struct skipMaillon* P;
-    struct skipMaillon* lightHouse;
-    struct skipMaillon* prec;
-    struct skipMaillon* level1_1;
-    struct skipMaillon* level1_2;
-    struct skipMaillon* level1_3;
-    struct skipMaillon* level2_1;
-    struct skipMaillon* level2_3;
-    struct skipMaillon* lightHouseBas;
-    struct skipMaillon* lightHouseBasMax;
-    bool found;
-    int cpt;
-    P = skipLireLlc();
-    /*skipAllouer(&lightHouse);
-    skipAllouer(&lightHouseBas);
-    skipAllouer(&lightHouseBasMax);
-    //skipAllouer(&level1_1);
-    //skipAffVal(level1_1, skipValeur(P));
-    skipAllouer(&level1_2);
-    skipAffVal(level1_2, skipValeur(skipSuivant(P)));
-    skipAllouer(&level1_3);
-    skipAffVal(level1_3, skipValeur(skipSuivant(skipSuivant(P))));
-    //skipAllouer(&level2_1);
-    //skipAffVal(level2_1, skipValeur(P));
-    skipAllouer(&level2_3);
-    skipAffVal(level2_3, skipValeur(skipSuivant(skipSuivant(P))));
-    skipAffAdrSuivant(lightHouse, level2_3);
-    skipAffAdrSuivant(lightHouseBas, level1_2);
-    skipAffAdrSuivant(lightHouseBasMax, P);
-    //skipAffAdrSuivant(level2_1, level2_3);
-    //skipAffAdrSuivant(level1_1, level1_2);
-    skipAffAdrSuivant(level1_2, level1_3);
-    skipAffAdrBas(lightHouse, lightHouseBas);
-    skipAffAdrBas(lightHouseBas, lightHouseBasMax);
-    //skipAffAdrBas(level2_1, level1_1);
-    //skipAffAdrBas(level1_1, P);
-    skipAffAdrBas(level1_2, skipSuivant(P));
-    skipAffAdrBas(level2_3, level1_3);
-    skipAffAdrBas(level1_3, skipSuivant(skipSuivant(P)));-------*/
-    skipCree(&lightHouse, P);
-    skipRech(lightHouse, 5, &prec, &found, &cpt);
-    printf("\nlighthouse: %p, prec: %p, found: %d, cpt: %d", lightHouse, prec,found, cpt);
-    /*skipEcrireLlc(P);
-    printf("\n-----------------");
-    skipSupp(lightHouse, 5, &P);
-    skipEcrireLlc(P);*/
-    //cpt = 0;
-    //skipRech(lightHouse, 5, &prec, &found, &cpt);
-    //printf("\nlighthouse: %p, prec: %p, found: %d, cpt: %d", lightHouse, prec,found, cpt);
-    //cpt = elLevel(lightHouse);
-    //printf("\n%d", cpt);
-    //generateDotFile(lightHouse, "skiplist_virt.dot");
+    do {
+        clearScreen();
+        printf("\n");
+        printf("=================================\n");
+        printf("           MENU\n");
+        printf("=================================\n");
+        printf("1. Tester la recherche 1\n");
+        printf("2. Tester la suppression 2\n");
+        printf("3. Tester l'insértion 3\n");
+        printf("4. Quiter\n");
+        printf("=================================\n");
+        printf("Entrer votre choix: ");
+        scanf("%d", &choix);
 
-
+        switch(choix) {
+            case 1:
+                printf("\nEntrer une grande valeur (millions) pour une bonne expérience ..");
+                printf("\nValeur à trouver: ");
+                scanf("%d", &val1);
+                rechTest(val1); // ce module est dans menu.c
+                break;
+            case 2:
+                printf("\nEntrer deux grandes différentes valeurs(millions) pour une bonne expérience ..");
+                printf("\nValeur à supprimer dans skiplist: ");
+                scanf("%d", &val1);
+                printf("\nValeur à supprimer dans llc: ");
+                scanf("%d", &val2);
+                suppTest(val1, val2); // ce module est dans menu.c
+                break;
+            case 3:
+                printf("\nYou chose Option 3.\n");
+                break;
+            case 4:
+                printf("\nAu revoir!!!\n");
+                break;
+            default:
+                printf("\nChoix invalide. Essayer autre fois.\n");
+                break;
+        }
+        printf("\nClick 'ENTER' pour continuer ...");
+        key = getchar(); // doublé pour éviter quelques problèmes
+        key = getchar();
+    } while(choix != 4);
 
     return 0;
 }
