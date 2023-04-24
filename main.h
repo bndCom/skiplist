@@ -1,5 +1,6 @@
 #ifndef MAIN_H_INCLUDED
 #define MAIN_H_INCLUDED
+#include <stdbool.h>
 
 
 /*declaration de la structure maillon de la skiplist --------------------*/
@@ -48,5 +49,9 @@ void skipEcrireLlc(struct skipMaillon* tete);
 /*lenght of llc ---------------------------------------*/
 
 int skipLenLlc(struct skipMaillon* tete);
+void sortLlcSuppVal(struct skipMaillon** tete, int val);
+
+void sortLlcRechVal(struct skipMaillon* tete, int val, bool* found, int* cpt);
+
 
 #endif // MAIN_H_INCLUDED

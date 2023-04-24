@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include <time.h>
 #include "main.h"
 #include "machineAbstraite.h"
 #include "menu.h"
@@ -53,7 +51,7 @@ int main()
                 printf("\nChoix invalide. Essayer autre fois.\n");
                 break;
         }
-        printf("\nClick 'ENTER' pour continuer ...");
+        printf("\n\n\nClick 'ENTER' pour continuer ...");
         key = getchar(); // doublé pour éviter quelques problèmes
         key = getchar();
     } while(choix != 4);

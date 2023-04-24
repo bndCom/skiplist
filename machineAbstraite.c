@@ -10,33 +10,24 @@
 
 void skipRech(struct skipMaillon* lightHouse, int val, struct skipMaillon** prec, bool* found, int* cpt){
 
-    //printf("\n hiiiiiiiiiiii i want to ...");
     struct skipMaillon* preced = lightHouse;
     bool foundTemp = false;
     *cpt = 0;
 
-    //printf("\n before while hiiiiii");// prec est le précedent du maillon du valeur à trouver
-
-    //printf("\nlighthouse: %p, preced: %p, foundTemp adr: %d",lightHouse, preced, foundTemp);
     while(preced != NULL && !foundTemp){
-        //printf("\n while hiiiiiiooooooiiiiiii");
         if (skipSuivant(preced) == NULL){
             preced = bas(preced);
-            //printf("\n first Hiiiiii is preced == null");
         }
         else if(skipValeur(skipSuivant(preced)) > val ){
             preced = bas(preced);
-            //printf("\n first Hiiiiii is > val");
         }
         else if(skipValeur(skipSuivant(preced)) == val){
             foundTemp = true;
 
             *cpt = skipValRepeat(lightHouse, preced, val);
-            //printf("\n second Hiiiiii is == val");
         }
-        else if(skipValeur(skipSuivant(preced)) < val){ // cas où la valeur du suivant est < val
+        else if(skipValeur(skipSuivant(preced)) < val){
             preced = skipSuivant(preced);
-            //printf("\n Hiiiiii is < val");
         }
     }
     // retourner les résulats de la recherche
@@ -56,8 +47,6 @@ void skipSupp(struct skipMaillon* lightHouse, int val, struct skipMaillon** tete
     int teteValSauv = skipValeur(*tete);
     // trouver le ptr vers le maillon qui précède l'élément à supprimer et le nombre de répetition
     skipRech(lightHouse, val, &prec, &found, &cpt);
-    //printf("\n%d", skipValeur(teteTemp));
-    //printf("\n in mach %d", skipValeur(teteTemp) == val);
     if(found){
         teteTemp = *tete;
         suppNiveaux(prec, val, &teteTemp);

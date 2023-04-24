@@ -60,7 +60,6 @@ struct skipMaillon* skipLireLlc(){
     scanf("%d", &val);
     skipAllouer(&P);
     skipAffVal(P, val);
-    //skipAffAdrBas(P, NULL);
     tete = P;
     for (int i=2 ; i<=n ; i++){
         printf("\nLa valeur: ");
@@ -84,7 +83,6 @@ void skipLireLlcRand(struct skipMaillon** tete){
     skipAllouer(&P);
     val = val + (rand() % 100);
     skipAffVal(P, val);
-    //skipAffAdrBas(P, NULL);
     *tete = P;
     for (int i=2 ; i<=25000000 ; i++){
         skipAllouer(&Q);

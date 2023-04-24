@@ -1,6 +1,6 @@
 #ifndef SKIPLISTRECH_H_INCLUDED
 #define SKIPLISTRECH_H_INCLUDED
 
-int valRepeat(struct skipMaillon* rechPtr);
+int skipValRepeat(struct skipMaillon* lightHouse, struct skipMaillon* prec, int val);
 
 #endif
