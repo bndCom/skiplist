@@ -5,5 +5,6 @@
     void skipSupp(struct skipMaillon* lightHouse, int val,struct skipMaillon** tete);
     void skipRech(struct skipMaillon* lightHouse, int val, struct skipMaillon** prec, bool* found, int* cpt);
     void skipCree (struct skipMaillon ** lighthouse  , struct skipMaillon * tete );
+    void skipInsert(struct skipMaillon **lighthouse , int new_valeur );
 
 #endif

@@ -11,6 +11,7 @@ int main()
     char key ;
     int val1;
     int val2;
+    int maillonNbr;
 
     do {
         clearScreen();
@@ -18,9 +19,9 @@ int main()
         printf("=================================\n");
         printf("           MENU\n");
         printf("=================================\n");
-        printf("1. Tester la recherche 1\n");
-        printf("2. Tester la suppression 2\n");
-        printf("3. Tester l'insértion 3\n");
+        printf("1. Tester la recherche \n");
+        printf("2. Tester la suppression \n");
+        printf("3. Tester l'insértion \n");
         printf("4. Quiter\n");
         printf("=================================\n");
         printf("Entrer votre choix: ");
@@ -28,27 +29,39 @@ int main()
 
         switch(choix) {
             case 1:
+                printf("\nEntrer la taille de la liste (millions de maillons) pour une bonne expérience ..");
+                printf("\nNombre de maillons: ");
+                scanf("%d", &maillonNbr);
                 printf("\nEntrer une grande valeur (millions) pour une bonne expérience ..");
                 printf("\nValeur à trouver: ");
                 scanf("%d", &val1);
-                rechTest(val1); // ce module est dans menu.c
+                rechTest(val1, maillonNbr); // ce module est dans menu.c
                 break;
             case 2:
+                printf("\nEntrer la taille de la liste (millions de maillons) pour une bonne expérience ..");
+                printf("\nNombre de maillons: ");
+                scanf("%d", &maillonNbr);
                 printf("\nEntrer deux grandes différentes valeurs(millions) pour une bonne expérience ..");
                 printf("\nValeur à supprimer dans skiplist: ");
                 scanf("%d", &val1);
                 printf("\nValeur à supprimer dans llc: ");
                 scanf("%d", &val2);
-                suppTest(val1, val2); // ce module est dans menu.c
+                suppTest(val1, val2, maillonNbr); // ce module est dans menu.c
                 break;
             case 3:
-                printf("\nYou chose Option 3.\n");
+                printf("\nEntrer la taille de la liste (millions de maillons) pour une bonne expérience ..");
+                printf("\nNombre de maillons: ");
+                scanf("%d", &maillonNbr);
+                printf("\nEntrer une grande valeur (millions) pour une bonne expérience ..");
+                printf("\nValeur à insérer: ");
+                scanf("%d", &val1);
+                insertTest(val1, maillonNbr); // ce module est dans menu.c
                 break;
             case 4:
                 printf("\nAu revoir!!!\n");
                 break;
             default:
-                printf("\nChoix invalide. Essayer autre fois.\n");
+                printf("\nChoix non valide. Essayer autre fois.\n");
                 break;
         }
         printf("\n\n\nClick 'ENTER' pour continuer ...");

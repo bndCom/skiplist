@@ -74,7 +74,7 @@ struct skipMaillon* skipLireLlc(){
 }
 /*lire une Llc----------------random--------------------------*/
 
-void skipLireLlcRand(struct skipMaillon** tete){
+void skipLireLlcRand(struct skipMaillon** tete, int maillonNbr){
     int n;
     int val = 1;
     struct skipMaillon* P;
@@ -84,7 +84,7 @@ void skipLireLlcRand(struct skipMaillon** tete){
     val = val + (rand() % 100);
     skipAffVal(P, val);
     *tete = P;
-    for (int i=2 ; i<=25000000 ; i++){
+    for (int i=2 ; i<=maillonNbr ; i++){
         skipAllouer(&Q);
         val = val + (rand() % 100);
         skipAffVal(Q, val);
@@ -138,16 +138,34 @@ void sortLlcRechVal(struct skipMaillon* tete, int val, bool* found, int* cpt) {
     struct skipMaillon* ptr = tete;
     *cpt = 0;
     *found = false;
-    while(ptr != NULL && skipValeur(ptr) < val){
+    while(ptr != NULL && skipValeur(ptr) < val){ // sauter tous les éléments avant val
         ptr = skipSuivant(ptr);
     }
 
     while(ptr != NULL && skipValeur(ptr) == val){
         *found = true;
-        cpt++;
+        *cpt = *cpt + 1;
+        ptr = skipSuivant(ptr);
     }
 
 }
+
+//insérer une valeur dans une llc --------------------------------------------
+
+void insertion_llc(struct skipMaillon **hello , int new_valeur){
+    struct skipMaillon *ptr  ;
+    ptr = *hello;
+    while(ptr != NULL && skipValeur(ptr) < new_valeur){
+        ptr = skipSuivant(ptr);
+    }
+    struct skipMaillon *new ;
+    skipAllouer(&new);
+    skipAffVal(new,new_valeur);
+    skipAffAdrSuivant(new, skipSuivant(ptr));
+    skipAffAdrSuivant(ptr,new);
+
+}
+
 /*lenght of llc ---------------------------------------*/
 
 int skipLenLlc(struct skipMaillon* tete){

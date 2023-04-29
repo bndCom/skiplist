@@ -131,6 +131,62 @@ tete = skipSuivant(tete);
 
 }
 }
+void skipInsert(struct skipMaillon **lighthouse , int new_valeur ) {
+    struct skipMaillon *guard ;
+    guard = *lighthouse;
+    struct skipMaillon *head_guard ;
+    head_guard = NULL;
+    struct skipMaillon *blank;
+    struct skipMaillon *p;
+    bool begining = true;
+
+    while (guard != NULL) {
+        if (skipSuivant(guard) == NULL || skipValeur(skipSuivant(guard)) > new_valeur) {
+            skipAllouer(&p);
+            skipAffAdrSuivant(p,guard);
+            skipAffAdrBas(p,head_guard);
+            head_guard = p;
+            guard = bas(guard);
+        }else {
+            begining = false;
+            guard = skipSuivant(guard);
+        }
+    }
+    struct skipMaillon *new_level ;
+    struct skipMaillon *new_Max ;
+    skipAllouer(&new_level);
+    skipAffAdrSuivant(new_level, skipSuivant(skipSuivant(head_guard)));
+    skipAffAdrBas(new_level, NULL);
+    skipAffAdrSuivant(skipSuivant(head_guard),new_level);
+    skipAffVal(new_level,new_valeur);
+
+
+    //la phase de creation er chainge des different niveau du maillon
+    while( key() != false ){
+        if(bas(head_guard) != NULL){
+
+            skipAllouer(&new_level);
+            skipAffVal(new_level,new_valeur);
+            skipAffAdrBas(new_level, skipSuivant(head_guard));
+            head_guard = bas(head_guard);
+            skipAffAdrSuivant(new_level, skipSuivant(skipSuivant(head_guard)));
+            skipAffAdrSuivant(skipSuivant(head_guard),new_level);
+        }else{
+            blank = new_level;
+            skipAllouer(&new_level);
+            skipAllouer(&new_Max);
+            skipAffAdrSuivant(new_Max,new_level);
+            skipAffAdrBas(new_Max,*lighthouse);
+            skipAffAdrSuivant(new_level,NULL);
+            skipAffAdrBas(new_level,blank);
+            *lighthouse = new_Max;
+        }
+    }
+}
+
+
+
+
 
 
 
